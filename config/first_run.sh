@@ -21,8 +21,7 @@ echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('password');" | mysql
 
 #### Configuring Apache ####
 echo "[WEBDEV-INFO] Configuring Apache"
-
-chown root:root /etc/apache2/vhosts/*.conf
+useradd $APACHE_RUN_USER
 echo "IncludeOptional vhosts/*.conf" >> /etc/apache2/apache2.conf
 a2enmod proxy_fcgi setenvif
 a2enconf php7.0-fpm
@@ -31,5 +30,4 @@ a2enconf php7.0-fpm
 #### Running Supervisor ####
 echo "[WEBDEV-INFO] Runnign Supervisor"
 
-/usr/bin/supervisord -c /etc/webdev/supervisord.conf
-
+/bin/bash /run.sh
